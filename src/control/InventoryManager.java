@@ -4,7 +4,7 @@ import adt.ListInterface;
 import adt.ArrayList;
 import entity.Ingredient;
 import java.util.Scanner;
-public class InventoryManagement {
+public class InventoryManager {
     private ListInterface<Ingredient> inventory = new ArrayList<>();
 
     public void runInventoryManagement() {
@@ -59,7 +59,7 @@ public class InventoryManagement {
     }
 
     public static void main(String[] args) {
-        InventoryManagement inventoryManagement = new InventoryManagement();
+        InventoryManager inventoryManagement = new InventoryManager();
         inventoryManagement.inventory = retrieve();
         inventoryManagement.runInventoryManagement();
     }
