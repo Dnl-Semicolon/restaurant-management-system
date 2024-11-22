@@ -12,19 +12,42 @@ public class InventoryManagement {
         do {
             choice = getMenuChoice();
             switch (choice) {
-
+                case 0 :
+                    System.out.println("\nExiting System");
+                    break;
+                case 1 :
+                    addNewInventory();
+                    displayInventory();
+                    break;
+                case 2 :
+                    displayInventory();
+                    break;
+                default:
+                    System.out.println("\nInvalid Choice");
             }
         } while (choice != 0);
     }
 
     public void addNewInventory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Inventory Item Name: ");
+        String tempName = scanner.nextLine();
+        System.out.println("Enter Initial Quantity: ");
+        int tempQuantity = scanner.nextInt();
+        scanner.nextLine();
+        Ingredient newItem = new Ingredient(tempName, tempQuantity);
+        inventory.add(newItem);
+        save(inventory);
+    }
 
+    public void displayInventory() {
+        System.out.println(inventory);
     }
 
     public int getMenuChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("--- INVENTORY MANAGEMENT ---");
-        System.out.println("\nMAIN MENU");
+        System.out.println("MAIN MENU");
         System.out.println("1. Add new inventory item");
         System.out.println("2. List all inventory");
         System.out.println("0. Quit");
@@ -38,7 +61,7 @@ public class InventoryManagement {
     public static void main(String[] args) {
         InventoryManagement inventoryManagement = new InventoryManagement();
         inventoryManagement.inventory = retrieve();
-        System.out.println(inventoryManagement.inventory);
+        inventoryManagement.runInventoryManagement();
     }
 
     public static void save(ListInterface<Ingredient> inventory) {
