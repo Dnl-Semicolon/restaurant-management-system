@@ -1,35 +1,56 @@
 package app;
+
+//Imports
 import control.InventoryManager;
-import boundary.InventoryUI;
+import boundary.InventoryManagerUI;
+import control.OrderProcessingManager;
+import boundary.OrderProcessingManagerUI;
+import control.BillingManager;
+import boundary.BillingManagerUI;
+import control.ReservationManager;
+import boundary.ReservationManagerUI;
 import java.util.Scanner;
 
 public class RestaurantManagementApplication {
-	// All managers
+
+	//All managers
 	private InventoryManager inventoryManager;
-/*	private OrderManager orderManager;
+	private OrderProcessingManager orderProcessingManager;
 	private BillingManager billingManager;
-	private ReservationManager reservationManager;*/
+	private ReservationManager reservationManager;
 
-	// All UI components
-	private InventoryUI inventoryUI;
-/*	private InventoryUI inventoryUI;
-	private OrderUI orderUI;
-	private BillingUI billingUI;
-	private ReservationUI reservationUI;*/
+	//All UI components
+	private InventoryManagerUI inventoryManagerUI;
+	private OrderProcessingManagerUI orderProcessingManagerUI;
+	private BillingManagerUI billingManagerUI;
+	private ReservationManagerUI reservationManagerUI;
 
+	//Scanner
 	private Scanner scanner;
 
+	//Constructor
 	public RestaurantManagementApplication() {
+
 		//Initialize managers
 		this.inventoryManager = new InventoryManager();
+		this.orderProcessingManager = new OrderProcessingManager(inventoryManager);
+		this.billingManager = new BillingManager();
+		this.reservationManager = new ReservationManager();
 
 		//Initialize UIs
-		this.inventoryUI = new InventoryUI();
+		this.inventoryManagerUI = new InventoryManagerUI(inventoryManager);
+		this.orderProcessingManagerUI = new OrderProcessingManagerUI(orderProcessingManager);
+		this.billingManagerUI = new BillingManagerUI(billingManager);
+		this.reservationManagerUI = new ReservationManagerUI(reservationManager);
 
 		//Load initial data
+
+		//Initialize scanner
+		this.scanner = new Scanner(System.in);
 	}
 
 	public void start() {
+		boolean exit = false;
 		int choice = 5;
 		do {
 			displayMainMenu();
@@ -37,7 +58,7 @@ public class RestaurantManagementApplication {
 
 			switch (choice) {
 				case 1 :
-					inventoryUI.runInventoryUI();
+					exit = inventoryManagerUI.runInventoryManagerUI();
 					break;
 				case 2 :
 					break;
@@ -51,7 +72,7 @@ public class RestaurantManagementApplication {
 				default :
 					System.out.println("Invalid choice.");
 			}
-		} while (choice != 5);
+		} while (choice != 5 && !exit);
 	}
 
 	public int getMenuChoice() {
