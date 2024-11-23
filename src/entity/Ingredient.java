@@ -29,9 +29,6 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "ingredientName='" + ingredientName + '\'' +
-                ", quantity=" + quantity +
-                '}';
+        return String.format("%-20s %10d", ingredientName, quantity);
     }
 }
